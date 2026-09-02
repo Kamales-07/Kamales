@@ -1,0 +1,107 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+    --ink: #43182f;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    margin: 0;
+    color: var(--ink);
+    font-family: theme('fontFamily.body');
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+    /* Warm cream base with soft pink light-leaks in the corners. */
+    background-color: #fff7f2;
+    background-image:
+      radial-gradient(120% 90% at 12% 0%, rgba(255, 168, 197, 0.5) 0%, rgba(255, 168, 197, 0) 55%),
+      radial-gradient(100% 80% at 92% 12%, rgba(255, 214, 190, 0.55) 0%, rgba(255, 214, 190, 0) 60%),
+      radial-gradient(120% 100% at 50% 108%, rgba(226, 62, 99, 0.28) 0%, rgba(226, 62, 99, 0) 60%);
+    background-attachment: fixed;
+  }
+
+  /* Keep the playful screens from being scrolled around by accident on mobile. */
+  #root {
+    isolation: isolate;
+  }
+
+  button {
+    font-family: inherit;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  ::selection {
+    background: rgba(255, 92, 146, 0.28);
+  }
+}
+
+@layer components {
+  /* Frosted card — the recurring surface for every screen. */
+  .glass {
+    @apply rounded-[28px] border border-white/60 bg-white/45 shadow-glow backdrop-blur-xl;
+  }
+
+  .glass-soft {
+    @apply rounded-3xl border border-white/50 bg-white/35 backdrop-blur-md;
+  }
+
+  .pill {
+    @apply inline-flex items-center gap-2 rounded-full border border-white/60 bg-white/50 px-4 py-1.5 text-xs font-semibold tracking-wide text-rouge-600 backdrop-blur-md sm:text-sm;
+  }
+
+  .btn-yes {
+    @apply relative select-none rounded-full bg-gradient-to-br from-blush-400 via-rouge-500 to-rouge-600 px-6 py-3.5 text-base font-bold text-white shadow-lift transition-shadow sm:px-8 sm:py-4 sm:text-lg;
+  }
+
+  .btn-ghost {
+    @apply select-none rounded-full border border-white/70 bg-white/55 px-5 py-3 text-sm font-semibold text-plum-700 shadow-soft backdrop-blur-md sm:px-6 sm:text-base;
+  }
+
+  .title-serif {
+    @apply font-display font-semibold leading-[1.08] tracking-tight text-plum-800;
+  }
+
+  .gradient-text {
+    background: linear-gradient(100deg, #e23e63 0%, #ff7fa9 45%, #c42b4c 100%);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: shimmer 8s ease infinite;
+  }
+}
+
+@layer utilities {
+  .safe-b {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+}
+
+/* Respect users who don't want motion: kill the decorative loops. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
